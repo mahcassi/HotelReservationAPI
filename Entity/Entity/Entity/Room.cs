@@ -8,9 +8,12 @@ namespace Entity.Entity
 {
     public class Room
     {
-        public int Id { get; set; }
-        public string RoomType { get; set; } // must be enum
+        public Guid Id { get; set; }
+        public string RoomType { get; set; } 
         public double Price { get; set; }
         public bool Availability { get; set; }
+        public IEnumerable<Reservation> Reservations { get; set; }
+        public Guid HotelId { get; set; }
+        public Hotel Hotel { get; set; }
     }
 }

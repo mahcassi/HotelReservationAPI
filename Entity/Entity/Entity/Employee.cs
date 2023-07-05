@@ -8,11 +8,12 @@ namespace Entity.Entity
 {
     public class Employee
     {
-        public int Id { get; set; }
+        public int Guid { get; set; }
         public string Name { get; set; }
         public string Telephone { get; set; }
         public string Address { get; set; }
         public string JobTitle { get; set; }
-        public int IdHotel { get; set; }
+
+        public IEnumerable<Reservation> Reservations { get; set; }
     }
 }
