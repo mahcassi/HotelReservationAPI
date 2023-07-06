@@ -11,7 +11,7 @@ namespace Entity.Entity
         public int Guid { get; set; }
         public string Name { get; set; }
         public string Telephone { get; set; }
-        public string Address { get; set; }
+        public AddressHotel AddressHotel { get; set; }
         public string JobTitle { get; set; }
 
         public IEnumerable<Reservation> Reservations { get; set; }
