@@ -15,8 +15,6 @@ namespace Entity.Entity
         public int PaymentStatus { get; set; }
         public Guid GuestId { get; set; }
         public Guest Guest { get; set; }
-        public Guid EmployeeId { get; set; }
-        public Employee Employee { get; set; }
         public Guid RoomId { get; set; }
         public Room Room { get; set; }
         public Guid PaymentReservationId { get; set; }

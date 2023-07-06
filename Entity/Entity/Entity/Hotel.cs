@@ -15,6 +15,5 @@ namespace Entity.Entity
         public string Amenities { get; set; }  // must be List
 
         public IEnumerable<Room> Rooms { get; set; }
-        public IEnumerable<Employee> Employees { get; set; }
     }
 }
