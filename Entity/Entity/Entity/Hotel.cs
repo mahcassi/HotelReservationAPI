@@ -10,8 +10,7 @@ namespace Entity.Entity
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
-        public string Address { get; set; }  
-        public int NumberRooms { get; set; }
+        public AddressHotel AddressHotel { get; set; }  
         public string Amenities { get; set; }  // must be List
 
         public IEnumerable<Room> Rooms { get; set; }
