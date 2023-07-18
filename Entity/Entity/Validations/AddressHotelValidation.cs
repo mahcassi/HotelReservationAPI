@@ -28,6 +28,7 @@ namespace Entity.Validations
                 .Length(2, 50).WithMessage("O campo {PropertyName} precisa ter entre {MinLength} e {MaxLength} caracteres");
 
             RuleFor(c => c.Number)
+
                 .NotEmpty().WithMessage("O campo {PropertyName} precisa ser fornecido")
                 .Length(1, 50).WithMessage("O campo {PropertyName} precisa ter entre {MinLength} e {MaxLength} caracteres");
         }
