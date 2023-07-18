@@ -8,6 +8,7 @@ namespace Entity.Entity
 {
     public class AddressEntity
     {
+        public int Id { get; set; }
         public string Street { get; set; }
         public string Number { get; set; }
         public string Complement { get; set; }
