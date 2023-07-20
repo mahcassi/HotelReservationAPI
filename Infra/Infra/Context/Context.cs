@@ -20,7 +20,6 @@ namespace Infra.Context
         public DbSet<RoomAmenities> RoomAmenities { get; set; }
         public DbSet<Reservation> Reservations { get; set; }
         public DbSet<Room> Rooms { get; set; }
-        public DbSet<PaymentReservation> PaymentReservations { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
