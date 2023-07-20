@@ -16,8 +16,6 @@ namespace Entity.Entity
         public string Name { get; set; }
         public string Telephone { get; set; }
         public string Cpf { get; set; }
-
         public IEnumerable<Reservation> Reservations { get; set; }
-        public IEnumerable<PaymentReservation> PaymentReservations { get; set; }
     }
 }
