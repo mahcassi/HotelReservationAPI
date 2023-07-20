@@ -19,7 +19,7 @@ namespace Infra.Mappings
                 .IsRequired()
                 .HasColumnType("varchar(200)");
 
-            builder.HasOne(a => a.AddressHotel).WithOne(h => h.Hotel);
+            builder.HasOne(b => b.AddressHotel).WithOne(h => h.Hotel);
 
             builder.HasMany(b => b.Amenities)
                 .WithOne(h => h.Hotel)
@@ -29,7 +29,7 @@ namespace Infra.Mappings
                .WithOne(h => h.Hotel)
                .HasForeignKey(f => f.HotelId);
 
-            builder.ToTable("Hotels")
+            builder.ToTable("Hotels");
         }
 
     }
