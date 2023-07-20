@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections;
+using Entity.Enums;
 
 namespace Entity.Entity
 {
@@ -14,7 +15,7 @@ namespace Entity.Entity
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        public string RoomType { get; set; } 
+        public ERoomType RoomType { get; set; } 
         public double Price { get; set; }
         public bool Availability { get; set; }
         public string Size { get; set; }
