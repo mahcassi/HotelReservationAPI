@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace Infra.Mappings
 {
-    public class HotelAmenitiesMapping : IEntityTypeConfiguration<HotelAmenities>
+    public class RoomAmenitiesMapping : IEntityTypeConfiguration<RoomAmenities>
     {
-        public void Configure(EntityTypeBuilder<HotelAmenities> builder)
+        public void Configure(EntityTypeBuilder<RoomAmenities> builder)
         {
             builder.HasKey(b => b.Id);
 
@@ -19,9 +19,9 @@ namespace Infra.Mappings
                 .IsRequired()
                 .HasColumnType("varchar(100)");
 
-            builder.HasOne(b => b.Hotel)
+            builder.HasOne(b => b.Room)
               .WithMany(h => h.Amenities)
-              .HasForeignKey(f => f.HotelId);
+              .HasForeignKey(f => f.RoomId);
         }
 
     }
