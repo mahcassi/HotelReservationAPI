@@ -1,13 +1,8 @@
-﻿using Domain.Interfaces;
+﻿using Domain.Interfaces.Repository;
 using Entity.Entity;
 using Infra.Context;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infra.Repository
 {

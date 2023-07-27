@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Interfaces
+namespace Domain.Interfaces.Repository
 {
     public interface IBaseRepository<TEntity> : IDisposable where TEntity : BaseEntity, new()
     {
