@@ -8,11 +8,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Entity.Entity
 {
-    public class HotelAmenities
+    public class HotelAmenities : BaseEntity
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
         public string Name { get; set; }
         public int HotelId { get; set; }
         public Hotel Hotel { get; set; }

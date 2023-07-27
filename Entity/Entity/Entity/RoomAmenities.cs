@@ -8,13 +8,9 @@ using System.Threading.Tasks;
 
 namespace Entity.Entity
 {
-    public class RoomAmenities
+    public class RoomAmenities : BaseEntity
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
         public string Name { get; set; }
-
         public int RoomId { get; set; }
         public Room Room { get; set; }
     }

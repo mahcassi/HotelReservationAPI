@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace Entity.Entity
 {
-    public class AddressEntity
+    public class AddressEntity : BaseEntity
     {
-        public int Id { get; set; }
         public string Street { get; set; }
         public string Number { get; set; }
         public string Complement { get; set; }

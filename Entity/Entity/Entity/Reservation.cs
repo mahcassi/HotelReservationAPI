@@ -8,11 +8,8 @@ using System.Threading.Tasks;
 
 namespace Entity.Entity
 {
-    public class Reservation
+    public class Reservation : BaseEntity
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
         public DateTime CheckIn { get; set; }
         public DateTime CheckOut { get; set; }
         public int NumberPeople { get; set; }

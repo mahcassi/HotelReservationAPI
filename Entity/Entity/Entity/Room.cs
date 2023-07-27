@@ -10,11 +10,8 @@ using Entity.Enums;
 
 namespace Entity.Entity
 {
-    public class Room
+    public class Room : BaseEntity
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
         public ERoomType RoomType { get; set; } 
         public double Price { get; set; }
         public bool Availability { get; set; }
