@@ -22,6 +22,12 @@ namespace Entity.Validations
              RuleFor(f => f.Availability)
               .NotEmpty().WithMessage("O campo {PropertyName} precisa ser fornecido");
 
+            RuleFor(f => f.Price)
+              .NotEmpty().WithMessage("O campo {PropertyName} precisa ser fornecido");
+
+            RuleFor(f => f.Number)
+              .NotEmpty().WithMessage("O campo {PropertyName} precisa ser fornecido");
+
         }
     }
 }

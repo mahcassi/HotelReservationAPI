@@ -1,20 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
+﻿using Entity.Entity;
 using Entity.Enums;
+using System.ComponentModel.DataAnnotations;
 
-namespace Entity.Entity
+namespace API.DTO
 {
-    public class Room : BaseEntity
+    public class RoomDTO
     {
-        public ERoomType RoomType { get; set; } 
+        public ERoomType RoomType { get; set; }
         public decimal Price { get; set; }
         public string Number { get; set; }
         public bool Availability { get; set; }
         public string Size { get; set; }
         public IEnumerable<RoomAmenities> Amenities { get; set; }
         public Reservation Reservation { get; set; }
+
+        [Required(ErrorMessage = "O campo {0} é obrigatório")]
         public int HotelId { get; set; }
         public Hotel Hotel { get; set; }
     }
