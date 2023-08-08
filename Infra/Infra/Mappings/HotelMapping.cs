@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace Infra.Mappings
 {
-    public class HotelAmenitiesMapping : IEntityTypeConfiguration<HotelAmenities>
+    public class HotelMapping : IEntityTypeConfiguration<Hotel>
     {
-        public void Configure(EntityTypeBuilder<HotelAmenities> builder)
+        public void Configure(EntityTypeBuilder<Hotel> builder)
         {
             builder.HasKey(b => b.Id);
 
@@ -20,9 +20,20 @@ namespace Infra.Mappings
                 .HasColumnType("varchar(100)");
 
 
-            builder.HasOne(b => b.Hotel)
-              .WithMany(h => h.Amenities)
-              .HasForeignKey(f => f.HotelId);
+           builder.HasOne(b => b.AddressHotel)
+            .WithOne(h => h.Hotel);
+
+            builder.HasMany(b => b.Amenities)
+            .WithOne(h => h.Hotel)
+            .HasForeignKey(h => h.HotelId);
+
+            builder.HasMany(b => b.Rooms)
+           .WithOne(h => h.Hotel)
+           .HasForeignKey(h => h.HotelId);
+
+            builder.Property(p => p.CNPJ)
+                .IsRequired()
+                .HasColumnType("varchar(14)");
         }
 
     }
