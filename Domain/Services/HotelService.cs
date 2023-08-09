@@ -26,7 +26,7 @@ namespace Domain.Services
 
             if(_repository.Search(h => h.CNPJ == hotel.CNPJ).Result.Any())
             {
-                Notify("Já existe um fornecedor com este documento informado.");
+                Notify("Já existe um hotel com este CNPJ informado.");
                 return false;
             }
 
@@ -34,9 +34,13 @@ namespace Domain.Services
             return true;
         }
 
-        public Task Remove(int id)
+        public async Task Remove(int id)
         {
-            throw new NotImplementedException();
+            //if (_repository.GetHotelRooms(id).Result.Rooms.Any())
+            //{
+            //    Notify("O fornecedor possui produtos cadastrados!");
+            //    return false;
+            //}
         }
 
         public Task Update(Hotel hotel)
