@@ -1,4 +1,11 @@
+using API.Configuration;
+using Domain.Interfaces;
+using Domain.Interfaces.Repository;
+using Domain.Interfaces.Services;
+using Domain.Notifications;
+using Domain.Services;
 using Infra.Context;
+using Infra.Repository;
 using Microsoft.EntityFrameworkCore;
 
 namespace API
@@ -20,6 +27,13 @@ namespace API
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
             });
+
+            builder.Services.AddAutoMapper(typeof(Program));
+
+            builder.Services.AddScoped<MyDbContext>();
+            builder.Services.AddScoped<IHotelRepository, HotelRepository>();
+            builder.Services.AddScoped<INotifier, Notifier>();
+            builder.Services.AddScoped<IHotelService, HotelService>();
 
             var app = builder.Build();
 
