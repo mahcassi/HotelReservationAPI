@@ -29,11 +29,7 @@ namespace API
             });
 
             builder.Services.AddAutoMapper(typeof(Program));
-
-            builder.Services.AddScoped<MyDbContext>();
-            builder.Services.AddScoped<IHotelRepository, HotelRepository>();
-            builder.Services.AddScoped<INotifier, Notifier>();
-            builder.Services.AddScoped<IHotelService, HotelService>();
+            builder.Services.ResolveDependencies();
 
             var app = builder.Build();
 
