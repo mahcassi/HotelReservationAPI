@@ -11,18 +11,18 @@ namespace Entity.Enums
     public enum ERoomType
     {
         [Description("Quarto Individual")]
-        SingleRoom,
+        SingleRoom = 1,
 
         [Description("Quarto Duplo")]
-        DoubleRoom,
+        DoubleRoom = 2,
 
         [Description("Quarto Twin")]
-        TwinRoom,
+        TwinRoom = 3,
 
         [Description("Suite")]
-        Suite,
+        Suite = 4,
 
         [Description("Quarto família")]
-        FamilyRoom,
+        FamilyRoom = 5,
     }
 }
