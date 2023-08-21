@@ -27,10 +27,6 @@ namespace Infra.Mappings
             .WithOne(h => h.Hotel)
             .HasForeignKey(h => h.HotelId);
 
-            builder.HasMany(b => b.Rooms)
-           .WithOne(h => h.Hotel)
-           .HasForeignKey(h => h.HotelId);
-
             builder.Property(p => p.CNPJ)
                 .IsRequired()
                 .HasColumnType("varchar(14)");

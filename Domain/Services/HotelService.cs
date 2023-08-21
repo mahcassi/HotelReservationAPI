@@ -50,7 +50,7 @@ namespace Domain.Services
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            _repository?.Dispose();
         }
     }
 }
