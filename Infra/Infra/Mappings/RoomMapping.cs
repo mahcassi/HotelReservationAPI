@@ -33,11 +33,6 @@ namespace Infra.Mappings
             builder.HasOne(b => b.Reservation)
                .WithOne(h => h.Room);
 
-            builder.HasOne(b => b.Hotel) // Cada quarto tem um hotel (relacionamento um-para-um)
-               .WithMany(h => h.Rooms) // Cada hotel pode ter muitos quartos
-               .HasForeignKey(b => b.HotelId) // Chave estrangeira para HotelId na entidade Room
-               .IsRequired();
-
             builder.ToTable("Rooms"); 
         }
     }

@@ -19,18 +19,17 @@ namespace Infra.Mappings
                 .IsRequired()
                 .HasColumnType("varchar(100)");
 
+            builder.Property(p => p.CNPJ)
+               .IsRequired()
+               .HasColumnType("varchar(14)");
 
-           builder.HasOne(b => b.AddressHotel)
-            .WithOne(h => h.Hotel);
+            builder.HasOne(b => b.AddressHotel)
+            .WithOne(h => h.Hotel)
+            .HasForeignKey<AddressHotel>(h => h.HotelId);
 
             builder.HasMany(b => b.Amenities)
             .WithOne(h => h.Hotel)
             .HasForeignKey(h => h.HotelId);
-
-            builder.Property(p => p.CNPJ)
-                .IsRequired()
-                .HasColumnType("varchar(14)");
         }
-
     }
 }

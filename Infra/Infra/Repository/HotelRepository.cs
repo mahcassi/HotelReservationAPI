@@ -23,12 +23,5 @@ namespace Infra.Repository
                 .Include(c => c.AddressHotel)
                 .FirstOrDefaultAsync(c => c.Id == id);
         }
-
-        public async Task<Hotel> GetHotelRooms(int id)
-        {
-            return await Db.Hotels.AsNoTracking()
-                .Include(c => c.Rooms)
-                .FirstOrDefaultAsync(c => c.Id == id);
-        }
     }
 }

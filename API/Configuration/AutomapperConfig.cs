@@ -10,6 +10,7 @@ namespace API.Configuration
         {
             CreateMap<Hotel, HotelDTO>().ReverseMap();
             CreateMap<HotelAmenities, HotelAmenitiesDTO>().ReverseMap();
+            CreateMap<AddressHotel, AddressHotelDTO>().ReverseMap();
 
         }
     }
