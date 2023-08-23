@@ -33,6 +33,7 @@ namespace Infra.Mappings
             builder.HasOne(b => b.Reservation)
                .WithOne(h => h.Room);
 
+
             builder.ToTable("Rooms"); 
         }
     }

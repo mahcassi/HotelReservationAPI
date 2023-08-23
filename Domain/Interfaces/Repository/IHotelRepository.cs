@@ -9,6 +9,6 @@ namespace Domain.Interfaces.Repository
 {
     public interface IHotelRepository : IBaseRepository<Hotel>
     {
-        Task<Hotel> GetHotelAddress(int id);
+        Task<Hotel> GetHotelAddressAmenities(int id);
     }
 }

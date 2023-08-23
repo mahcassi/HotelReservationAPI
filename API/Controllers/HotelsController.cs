@@ -32,6 +32,16 @@ namespace API.Controllers
             return hotel;
         }
 
+        [HttpGet("{id:int}")]
+        public async Task<ActionResult<HotelDTO>> ObterPorId(int id)
+        {
+            var hotel = await ObterHotelEndereco(id);
+
+            if (hotel == null) return NotFound();
+
+            return Ok(hotel);
+        }
+
         [HttpPost]
         public async Task<ActionResult<HotelDTO>> Adicionar(HotelDTO hotel)
         {
@@ -40,6 +50,12 @@ namespace API.Controllers
             await _hotelService.Add(_mapper.Map<Hotel>(hotel));
 
             return CustomResponse(hotel);
+        }
+
+        [NonAction]
+        private async Task<HotelDTO> ObterHotelEndereco(int id)
+        {
+            return _mapper.Map<HotelDTO>(await _hotelRepository.GetHotelAddressAmenities(id));
         }
 
     }
