@@ -21,7 +21,8 @@ namespace Infra.Repository
         {
             return await Db.Hotels.AsNoTracking()
                 .Include(c => c.AddressHotel)
-                .Include(c => c.Amenities)
+                .Include(c => c.HotelAmenities)
+                .ThenInclude(c => c.AmenityHotel)
                 .FirstOrDefaultAsync(c => c.Id == id);
         }
     }

@@ -27,9 +27,9 @@ namespace Infra.Mappings
             .WithOne(h => h.Hotel)
             .HasForeignKey<AddressHotel>(h => h.HotelId);
 
-            builder.HasMany(b => b.Amenities)
-            .WithOne(h => h.Hotel)
-            .HasForeignKey(h => h.HotelId);
+            builder.HasMany(h => h.HotelAmenities)
+              .WithOne(ha => ha.Hotel)
+              .HasForeignKey(ha => ha.HotelId);
         }
     }
 }
