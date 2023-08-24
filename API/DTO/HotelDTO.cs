@@ -17,6 +17,6 @@ namespace API.DTO
         public string CNPJ { get; set; }
 
         public AddressHotelDTO AddressHotel { get; set; }
-        public IEnumerable<HotelAmenitiesDTO> Amenities { get; set; }
+        public IEnumerable<HotelAmenitiesDTO> HotelAmenities { get; set; }
     }
 }
