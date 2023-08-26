@@ -6,6 +6,5 @@ namespace API.DTO
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public IEnumerable<HotelAmenitiesDTO> HotelAmenities { get; set; }
     }
 }

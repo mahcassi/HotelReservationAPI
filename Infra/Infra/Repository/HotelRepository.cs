@@ -25,5 +25,17 @@ namespace Infra.Repository
                 .ThenInclude(c => c.AmenityHotel)
                 .FirstOrDefaultAsync(c => c.Id == id);
         }
+
+        public async Task AssociarAmenityAoHotel(int hotelId, int amenityId)
+        {
+            var hotelAmenity = new HotelAmenity
+            {
+                HotelId = hotelId,
+                AmenityId = amenityId
+            };
+
+            Db.HotelAmenities.Add(hotelAmenity);
+            await SaveChanges();
+        }
     }
 }

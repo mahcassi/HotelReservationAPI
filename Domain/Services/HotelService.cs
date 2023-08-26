@@ -34,6 +34,8 @@ namespace Domain.Services
             return true;
         }
 
+
+
         public async Task Remove(int id)
         {
             //if (_repository.GetHotelRooms(id).Result.Rooms.Any())
@@ -52,5 +54,25 @@ namespace Domain.Services
         {
             _repository?.Dispose();
         }
+
+        public async Task<bool> AdicionarHotelComAmenities(Hotel hotel, IEnumerable<int> amenityIds)
+        {
+            bool isHotelAdded = await Add(hotel);
+
+            if (isHotelAdded)
+            {
+                foreach (var amenityId in amenityIds)
+                {
+                    await _repository.AssociarAmenityAoHotel(hotel.Id, amenityId);
+                }
+                return true;
+            }
+            else
+            {
+                Notify("Hotel não foi adicionado. Comodidades não foram associadas.");
+                return false;
+            }
+        }
+
     }
 }
