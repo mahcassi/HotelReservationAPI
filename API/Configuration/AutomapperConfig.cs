@@ -8,6 +8,7 @@ namespace API.Configuration
     {
         public AutomapperConfig()
         {
+            CreateMap<Hotel, HotelRequestDTO>().ReverseMap();
             CreateMap<Hotel, HotelDTO>().ReverseMap();
             CreateMap<AmenityHotel, AmenityHotelDTO>().ReverseMap();
             CreateMap<HotelAmenity, HotelAmenitiesDTO>().ReverseMap();
