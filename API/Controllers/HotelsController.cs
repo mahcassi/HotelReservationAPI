@@ -26,24 +26,33 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<HotelDTO>> ObterTodos()
+        public async Task<IEnumerable<HotelRequestDTO>> ObterTodos()
         {
-            var hotel = _mapper.Map<IEnumerable<HotelDTO>>(await _hotelRepository.GetAll());
+            var hotel = _mapper.Map<IEnumerable<HotelRequestDTO>>(await _hotelRepository.GetAll());
             return hotel;
         }
 
         [HttpGet("{id:int}")]
-        public async Task<ActionResult<HotelDTO>> ObterPorId(int id)
+        public async Task<ActionResult<HotelResponseDTO>> ObterPorId(int id)
         {
             var hotel = await ObterHotelEndereco(id);
 
             if (hotel == null) return NotFound();
 
-            return Ok(hotel);
+            var hotelDTO = new HotelResponseDTO
+            {
+                Id = hotel.Id,
+                Name = hotel.Name,
+                CNPJ = hotel.CNPJ,
+                AddressHotel = hotel.AddressHotel,
+                AmenityHotel = hotel.HotelAmenities.Select(x => x.AmenityHotel).ToArray()
+            };
+
+            return Ok(hotelDTO);
         }
 
         [HttpPost]
-        public async Task<ActionResult<HotelDTO>> Adicionar(HotelDTO hotel)
+        public async Task<ActionResult<HotelRequestDTO>> Adicionar(HotelRequestDTO hotel)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 

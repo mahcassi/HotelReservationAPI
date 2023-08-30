@@ -8,7 +8,7 @@ namespace API.DTO
         public int Id { get; set; }
         public int HotelId { get; set; }
         public int AmenityId { get; set; }
-        public HotelDTO Hotel { get; set; }
+        public HotelRequestDTO Hotel { get; set; }
         public AmenityHotelDTO AmenityHotel { get; set; }
     }
 }

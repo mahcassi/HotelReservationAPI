@@ -19,11 +19,13 @@ namespace Infra.Repository
 
         public async Task<Hotel> GetHotelAddressAmenities(int id)
         {
-            return await Db.Hotels.AsNoTracking()
+            var result = await Db.Hotels.AsNoTracking()
                 .Include(c => c.AddressHotel)
                 .Include(c => c.HotelAmenities)
                 .ThenInclude(c => c.AmenityHotel)
                 .FirstOrDefaultAsync(c => c.Id == id);
+
+            return result;
         }
 
         public async Task AssociarAmenityAoHotel(int hotelId, int amenityId)
