@@ -28,7 +28,7 @@ namespace Infra.Repository
             return result;
         }
 
-        public async Task AssociarAmenityAoHotel(int hotelId, int amenityId)
+        public async Task AssociationAmenityHotel(int hotelId, int amenityId)
         {
             var hotelAmenity = new HotelAmenity
             {
@@ -37,6 +37,18 @@ namespace Infra.Repository
             };
 
             Db.HotelAmenities.Add(hotelAmenity);
+            await SaveChanges();
+        }
+
+        public async Task UpdateAssociationAmenityHotel(int hotelId, int amenityId)
+        {
+            var hotelAmenity = new HotelAmenity
+            {
+                HotelId = hotelId,
+                AmenityId = amenityId
+            };
+
+            Db.HotelAmenities.Update(hotelAmenity);
             await SaveChanges();
         }
     }

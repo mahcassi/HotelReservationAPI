@@ -10,9 +10,9 @@ namespace Domain.Interfaces.Services
     public interface IHotelService : IDisposable
     {
         Task<bool> Add(Hotel hotel);
-        Task Update(Hotel hotel);
+        Task<bool> Update(Hotel hotel);
         Task Remove(int id);
-
         Task<bool> AdicionarHotelComAmenities(Hotel hotel, IEnumerable<int> amenityIds);
+        Task<bool> AtualizarHotelComAmenities(Hotel hotel, IEnumerable<int> amenityIds);
     }
 }

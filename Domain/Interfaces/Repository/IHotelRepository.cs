@@ -10,6 +10,8 @@ namespace Domain.Interfaces.Repository
     public interface IHotelRepository : IBaseRepository<Hotel>
     {
         Task<Hotel> GetHotelAddressAmenities(int id);
-        Task AssociarAmenityAoHotel(int hotelId, int amenityId);
+        Task AssociationAmenityHotel(int hotelId, int amenityId);
+
+        Task UpdateAssociationAmenityHotel(int hotelId, int amenityId);
     }
 }

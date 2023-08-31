@@ -22,7 +22,6 @@ namespace Domain.Services
 
         public async Task<bool> Add(Hotel hotel)
         {
-            if (ExecuteValidation(new HotelValidation(), hotel)) return false;
 
             if(_repository.Search(h => h.CNPJ == hotel.CNPJ).Result.Any())
             {
@@ -45,14 +44,37 @@ namespace Domain.Services
             //}
         }
 
-        public Task Update(Hotel hotel)
+        public async Task<bool> Update(Hotel hotel)
         {
-            throw new NotImplementedException();
+            //if (ExecuteValidation(new HotelValidation(), hotel)) return false;
+
+            if (_repository.Search(h => h.CNPJ == hotel.CNPJ && h.Id != hotel.Id).Result.Any())
+            {
+                Notify("Já existe um hotel com este CNPJ informado.");
+                return false;
+            }
+
+            await _repository.Update(hotel);
+            return true;
         }
 
-        public void Dispose()
+        public async Task<bool> AtualizarHotelComAmenities(Hotel hotel, IEnumerable<int> amenityIds)
         {
-            _repository?.Dispose();
+            bool isHotelUpdated = await Update(hotel);
+
+            if (isHotelUpdated)
+            {
+                foreach (var amenityId in amenityIds)
+                {
+                    await _repository.UpdateAssociationAmenityHotel(hotel.Id, amenityId);
+                }
+                return true;
+            }
+            else
+            {
+                Notify("Hotel não foi atualizado. Comodidades não foram associadas.");
+                return false;
+            }
         }
 
         public async Task<bool> AdicionarHotelComAmenities(Hotel hotel, IEnumerable<int> amenityIds)
@@ -63,7 +85,7 @@ namespace Domain.Services
             {
                 foreach (var amenityId in amenityIds)
                 {
-                    await _repository.AssociarAmenityAoHotel(hotel.Id, amenityId);
+                    await _repository.AssociationAmenityHotel(hotel.Id, amenityId);
                 }
                 return true;
             }
@@ -72,6 +94,11 @@ namespace Domain.Services
                 Notify("Hotel não foi adicionado. Comodidades não foram associadas.");
                 return false;
             }
+        }
+
+        public void Dispose()
+        {
+            _repository?.Dispose();
         }
 
     }
