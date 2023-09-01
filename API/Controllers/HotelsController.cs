@@ -26,9 +26,9 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<HotelRequestDTO>> ObterTodos()
+        public async Task<IEnumerable<HotelDTO>> ObterTodos()
         {
-            var hotel = _mapper.Map<IEnumerable<HotelRequestDTO>>(await _hotelRepository.GetAll());
+            var hotel = _mapper.Map<IEnumerable<HotelDTO>>(await _hotelRepository.GetAll());
             return hotel;
         }
 
@@ -45,10 +45,20 @@ namespace API.Controllers
                 Name = hotel.Name,
                 CNPJ = hotel.CNPJ,
                 AddressHotel = hotel.AddressHotel,
-                AmenityHotel = hotel.HotelAmenities.Select(x => x.AmenityHotel).ToArray()
+                AmenityHotel = hotel.HotelAmenities.Select(x => x.AmenityHotel).ToList()
             };
 
             return Ok(hotelDTO);
+        }
+
+        [HttpPut("{id:int}")]
+        public async Task<ActionResult<HotelResponseDTO>> AtualizarHotel(int id, HotelRequestDTO hotel)
+        {
+            if (!ModelState.IsValid) return CustomResponse(ModelState);
+
+            await _hotelService.AtualizarHotelComAmenities(_mapper.Map<Hotel>(hotel), hotel.AmenitiesIds);
+
+            return CustomResponse(hotel);
         }
 
         [HttpPost]
