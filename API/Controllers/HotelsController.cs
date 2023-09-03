@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using AutoMapper;
-using Domain.Interfaces.Repository;
+using Infra.Interfaces.Repository;
 using Domain.Interfaces.Services;
 using Domain.Interfaces;
 using Entity.Entity;

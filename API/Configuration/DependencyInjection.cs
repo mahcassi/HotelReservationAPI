@@ -1,4 +1,4 @@
-﻿using Domain.Interfaces.Repository;
+﻿using Infra.Interfaces.Repository;
 using Domain.Interfaces.Services;
 using Domain.Interfaces;
 using Domain.Notifications;
