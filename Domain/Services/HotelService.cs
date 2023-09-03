@@ -62,7 +62,7 @@ namespace Domain.Services
             return true;
         }
 
-        public async Task<bool> AtualizarHotelComAmenities(Hotel hotel, IEnumerable<int> amenityIds)
+        public async Task<bool> UpdateHotelWithAmenities(Hotel hotel, IEnumerable<int> amenityIds)
         {
             using (var transaction = _dbContext.Database.BeginTransaction())
             {
@@ -90,7 +90,7 @@ namespace Domain.Services
                 
         }
 
-        public async Task<bool> AdicionarHotelComAmenities(Hotel hotel, IEnumerable<int> amenityIds)
+        public async Task<bool> AddHotelWithAmenities(Hotel hotel, IEnumerable<int> amenityIds)
         {
             bool isHotelAdded = await Add(hotel);
 

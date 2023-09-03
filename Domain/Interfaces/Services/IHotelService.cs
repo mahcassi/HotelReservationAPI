@@ -12,7 +12,7 @@ namespace Domain.Interfaces.Services
         Task<bool> Add(Hotel hotel);
         Task<bool> Update(Hotel hotel);
         Task Remove(int id);
-        Task<bool> AdicionarHotelComAmenities(Hotel hotel, IEnumerable<int> amenityIds);
-        Task<bool> AtualizarHotelComAmenities(Hotel hotel, IEnumerable<int> amenityIds);
+        Task<bool> AddHotelWithAmenities(Hotel hotel, IEnumerable<int> amenityIds);
+        Task<bool> UpdateHotelWithAmenities(Hotel hotel, IEnumerable<int> amenityIds);
     }
 }

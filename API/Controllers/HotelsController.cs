@@ -56,7 +56,7 @@ namespace API.Controllers
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            await _hotelService.AtualizarHotelComAmenities(_mapper.Map<Hotel>(hotel), hotel.AmenitiesIds);
+            await _hotelService.UpdateHotelWithAmenities(_mapper.Map<Hotel>(hotel), hotel.AmenitiesIds);
 
             return CustomResponse(hotel);
         }
@@ -66,7 +66,7 @@ namespace API.Controllers
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            await _hotelService.AdicionarHotelComAmenities(_mapper.Map<Hotel>(hotel), hotel.AmenitiesIds);
+            await _hotelService.AddHotelWithAmenities(_mapper.Map<Hotel>(hotel), hotel.AmenitiesIds);
 
             return CustomResponse(hotel);
         }
