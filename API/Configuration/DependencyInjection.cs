@@ -5,7 +5,7 @@ using Domain.Notifications;
 using Domain.Services;
 using Infra.Context;
 using Infra.Repository;
-using System.Runtime.CompilerServices;
+
 
 namespace API.Configuration
 {
