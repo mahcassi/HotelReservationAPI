@@ -25,7 +25,6 @@ namespace API.DTO
         public string Size { get; set; }
 
         //[Required(ErrorMessage = "O campo {0} é obrigatório")]
-        public IEnumerable<RoomAmenities> Amenities { get; set; }
 
         public Reservation Reservation { get; set; }
 

@@ -13,7 +13,6 @@ namespace Infra.Context
         public DbSet<HotelAmenity> HotelAmenities { get; set; }
 
         public DbSet<AmenityHotel> AmenityHotel { get; set; }
-        public DbSet<RoomAmenities> RoomAmenities { get; set; }
         public DbSet<Reservation> Reservations { get; set; }
         public DbSet<Room> Rooms { get; set; }
 

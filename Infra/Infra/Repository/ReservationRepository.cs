@@ -1,7 +1,7 @@
 ﻿using Infra.Interfaces.Repository;
 using Entity.Entity;
 using Infra.Context;
-using Microsoft.EntityFrameworkCore
+using Microsoft.EntityFrameworkCore;
 
 namespace Infra.Repository
 {
