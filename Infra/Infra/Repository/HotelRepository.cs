@@ -1,4 +1,4 @@
-﻿using Domain.Interfaces.Repository;
+﻿using Infra.Interfaces.Repository;
 using Entity.Entity;
 using Infra.Context;
 using Microsoft.EntityFrameworkCore;
@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace Infra.Repository
 {
@@ -28,27 +29,56 @@ namespace Infra.Repository
             return result;
         }
 
-        public async Task AssociationAmenityHotel(int hotelId, int amenityId)
+        public async Task<bool> AssociationAmenityHotel(int hotelId, int amenityId)
         {
-            var hotelAmenity = new HotelAmenity
-            {
-                HotelId = hotelId,
-                AmenityId = amenityId
-            };
+            var amentiesExist = Db.HotelAmenities.Where(ha => ha.HotelId == hotelId && ha.AmenityId == amenityId).ToList();
 
-            Db.HotelAmenities.Add(hotelAmenity);
-            await SaveChanges();
+            if (!amentiesExist.Any())
+            {
+                var hotelAmenity = new HotelAmenity
+                {
+                    HotelId = hotelId,
+                    AmenityId = amenityId
+                };
+
+                Db.HotelAmenities.Add(hotelAmenity);
+                await SaveChanges();
+                return true; // Associação adicionada com sucesso
+            }
+
+            return false; // A associação já existe
         }
 
-        public async Task UpdateAssociationAmenityHotel(int hotelId, int amenityId)
+        public async Task UpdateAssociationAmenityHotel(int hotelId, IEnumerable<int> newAmenityIds)
         {
-            var hotelAmenity = new HotelAmenity
-            {
-                HotelId = hotelId,
-                AmenityId = amenityId
-            };
+            var currentAmenityIds = await Db.HotelAmenities
+                                            .Where(ha => ha.HotelId == hotelId)
+                                            .Select(ha => ha.AmenityId)
+                                            .ToListAsync();
 
-            Db.HotelAmenities.Update(hotelAmenity);
+            var amenitiesToRemove = currentAmenityIds.Except(newAmenityIds).ToList();
+            var amenitiesToAdd = newAmenityIds.Except(currentAmenityIds).ToList();
+
+            if (amenitiesToRemove.Any())
+            {
+                var amenitiesToRemoveEntities = Db.HotelAmenities
+                    .Where(ha => ha.HotelId == hotelId && amenitiesToRemove.Contains(ha.AmenityId))
+                    .ToList();
+
+                Db.HotelAmenities.RemoveRange(amenitiesToRemoveEntities);
+            }
+
+            foreach (var amenityId in amenitiesToAdd)
+            {
+                var hotelAmenity = new HotelAmenity
+                {
+                    HotelId = hotelId,
+                    AmenityId = amenityId
+                };
+
+                Db.HotelAmenities.Add(hotelAmenity);
+            }
+
             await SaveChanges();
         }
     }

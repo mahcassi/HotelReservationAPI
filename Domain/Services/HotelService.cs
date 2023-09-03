@@ -1,23 +1,27 @@
 ﻿using Domain.Interfaces;
-using Domain.Interfaces.Repository;
+using Infra.Interfaces.Repository;
 using Domain.Interfaces.Services;
 using Entity.Entity;
 using Entity.Validations;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Infra.Context;
 
 namespace Domain.Services
 {
     public class HotelService : BaseService, IHotelService
     {
         private readonly IHotelRepository _repository;
+        private readonly MyDbContext _dbContext;
 
-        public HotelService(IHotelRepository repository, INotifier notify) : base(notify)
+        public HotelService(IHotelRepository repository, INotifier notify, MyDbContext dbContext) : base(notify)
         {
             _repository = repository;
+            _dbContext = dbContext;
         }
 
         public async Task<bool> Add(Hotel hotel)
@@ -60,21 +64,30 @@ namespace Domain.Services
 
         public async Task<bool> AtualizarHotelComAmenities(Hotel hotel, IEnumerable<int> amenityIds)
         {
-            bool isHotelUpdated = await Update(hotel);
-
-            if (isHotelUpdated)
+            using (var transaction = _dbContext.Database.BeginTransaction())
             {
-                foreach (var amenityId in amenityIds)
+                try
                 {
-                    await _repository.UpdateAssociationAmenityHotel(hotel.Id, amenityId);
+                    bool isHotelUpdated = await Update(hotel);
+
+                    if (isHotelUpdated)
+                    {
+                        await _repository.UpdateAssociationAmenityHotel(hotel.Id, amenityIds);
+                        transaction.Commit();
+                        return true;
+                    }
+                    else
+                    {
+                        Notify("Hotel não foi atualizado. Comodidades não foram associadas.");
+                        return false;
+                    }
+                } catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    return false;
                 }
-                return true;
             }
-            else
-            {
-                Notify("Hotel não foi atualizado. Comodidades não foram associadas.");
-                return false;
-            }
+                
         }
 
         public async Task<bool> AdicionarHotelComAmenities(Hotel hotel, IEnumerable<int> amenityIds)
