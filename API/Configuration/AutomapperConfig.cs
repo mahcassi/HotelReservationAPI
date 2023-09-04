@@ -1,6 +1,10 @@
 ﻿using API.DTO;
 using AutoMapper;
+using Domain.Interfaces.Services;
+using Domain.Services;
 using Entity.Entity;
+using Infra.Interfaces.Repository;
+using Infra.Repository;
 
 namespace API.Configuration
 {
@@ -8,11 +12,15 @@ namespace API.Configuration
     {
         public AutomapperConfig()
         {
+            //Hotel
             CreateMap<Hotel, HotelRequestDTO>().ReverseMap();
             CreateMap<Hotel, HotelDTO>().ReverseMap();
             CreateMap<AmenityHotel, AmenityHotelDTO>().ReverseMap();
             CreateMap<HotelAmenity, HotelAmenitiesDTO>().ReverseMap();
             CreateMap<AddressHotel, AddressHotelDTO>().ReverseMap();
+
+            //Room
+            CreateMap<Room, RoomDTO>().ReverseMap();
         }
     }
 }

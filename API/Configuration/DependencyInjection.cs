@@ -14,9 +14,11 @@ namespace API.Configuration
         public static IServiceCollection ResolveDependencies(this IServiceCollection services)
         {
             services.AddScoped<MyDbContext>();
-            services.AddScoped<IHotelRepository, HotelRepository>();
             services.AddScoped<INotifier, Notifier>();
+            services.AddScoped<IHotelRepository, HotelRepository>();
             services.AddScoped<IHotelService, HotelService>();
+            services.AddScoped<IRoomRepository, RoomRepository>();
+            services.AddScoped<IRoomService, RoomService>();
 
             return services;
         }
