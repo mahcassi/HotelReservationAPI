@@ -35,7 +35,7 @@ namespace API.Controllers
         [HttpGet("{id:int}")]
         public async Task<ActionResult<HotelResponseDTO>> ObterPorId(int id)
         {
-            var hotel = await ObterHotelEndereco(id);
+            var hotel = await ObterHotelRoomEndereco(id);
 
             if (hotel == null) return NotFound();
 
@@ -45,7 +45,8 @@ namespace API.Controllers
                 Name = hotel.Name,
                 CNPJ = hotel.CNPJ,
                 AddressHotel = hotel.AddressHotel,
-                AmenityHotel = hotel.HotelAmenities.Select(x => x.AmenityHotel).ToList()
+                AmenityHotel = hotel.HotelAmenities.Select(x => x.AmenityHotel).ToList(),
+                Rooms = hotel.Rooms
             };
 
             return Ok(hotelDTO);
@@ -72,9 +73,9 @@ namespace API.Controllers
         }
 
         [NonAction]
-        private async Task<HotelDTO> ObterHotelEndereco(int id)
+        private async Task<HotelDTO> ObterHotelRoomEndereco(int id)
         {
-            return _mapper.Map<HotelDTO>(await _hotelRepository.GetHotelAddressAmenities(id));
+            return _mapper.Map<HotelDTO>(await _hotelRepository.GetHotelAddressAmenitiesRoom(id));
         }
 
     }

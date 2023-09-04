@@ -28,7 +28,6 @@ namespace API.DTO
 
         public Reservation Reservation { get; set; }
 
-        //[Required(ErrorMessage = "O campo {0} é obrigatório")]
-        public HotelDTO Hotel { get; set; }
+        public int HotelId { get; set; }
     }
 }
