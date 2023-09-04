@@ -50,7 +50,7 @@ namespace Domain.Services
 
             if (_repository.Search(r => r.Number == room.Number && r.Id != room.Id).Result.Any())
             {
-                Notify("Já existe um hotel com este CNPJ informado.");
+                Notify("Já existe um quarto com este número informado.");
                 return false;
             }
 
