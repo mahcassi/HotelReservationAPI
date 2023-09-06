@@ -28,7 +28,7 @@ namespace API.Controllers
         [HttpGet]
         public async Task<IEnumerable<HotelDTO>> ObterTodos()
         {
-            var hotel = _mapper.Map<IEnumerable<HotelDTO>>(await _hotelRepository.GetAll());
+            var hotel = _mapper.Map<IEnumerable<HotelDTO>>(await _hotelRepository.GetHotels());
             return hotel;
         }
 

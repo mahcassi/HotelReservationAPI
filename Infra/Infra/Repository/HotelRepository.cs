@@ -24,6 +24,15 @@ namespace Infra.Repository
             return result;
         }
 
+        public async Task<List<Hotel>> GetHotels()
+        {
+            var result = await Db.Hotels.AsNoTracking()
+                .Include(c => c.AddressHotel)
+                .ToListAsync();
+
+            return result;
+        }
+
         public async Task<bool> AssociationAmenityHotel(int hotelId, int amenityId)
         {
             var amentiesExist = Db.HotelAmenities.Where(ha => ha.HotelId == hotelId && ha.AmenityId == amenityId).ToList();
