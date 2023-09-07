@@ -31,6 +31,16 @@ namespace API
             builder.Services.AddAutoMapper(typeof(Program));
             builder.Services.ResolveDependencies();
 
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("Development", builder =>
+                {
+                    builder.WithOrigins("http://localhost:4200")
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
+                });
+            });
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -39,6 +49,8 @@ namespace API
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+
+            app.UseCors("Development");
 
             app.UseHttpsRedirection();
 
