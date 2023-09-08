@@ -18,6 +18,11 @@ namespace Infra.Mappings
                .IsRequired()
                .HasColumnType("varchar(14)");
 
+
+            builder.Property(p => p.PhoneNumber)
+               .IsRequired()
+               .HasColumnType("varchar(14)");
+
             builder.HasOne(b => b.AddressHotel)
             .WithOne(h => h.Hotel)
             .HasForeignKey<AddressHotel>(h => h.HotelId);

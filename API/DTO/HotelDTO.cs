@@ -9,6 +9,8 @@ namespace API.DTO
 
         public string Name { get; set; }
 
+        public string PhoneNumber { get; set; }
+
         public string CNPJ { get; set; }
 
         public AddressHotelDTO AddressHotel { get; set; }
