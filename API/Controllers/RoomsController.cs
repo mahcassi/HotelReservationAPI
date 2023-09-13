@@ -15,14 +15,46 @@ namespace API.Controllers
     {
         private readonly IMapper _mapper;
         private readonly IRoomRepository _roomRepository;
+        private readonly IHotelRepository _hotelRepository;
         private readonly IRoomService _roomService;
         private readonly INotifier _notifier;
 
-        public RoomsController(INotifier notifier, IMapper mapper, IRoomRepository roomRepository, IRoomService roomService) : base(notifier)
+        public RoomsController(INotifier notifier, IMapper mapper, IRoomRepository roomRepository, IRoomService roomService, IHotelRepository hotelRepository) : base(notifier)
         {
             _mapper = mapper;
             _roomRepository = roomRepository;
             _roomService = roomService;
+            _hotelRepository = hotelRepository;
+        }
+
+        [HttpGet]
+        public async Task<IEnumerable<RoomDTO>> ObterTodos()
+        {
+            var rooms = await _roomRepository.GetAll();
+
+            var roomDTOs = new List<RoomDTO>();
+
+            foreach (var room in rooms)
+            {
+                var hotelAddress = _mapper.Map<HotelDTO>(await _hotelRepository.GetHotelAddressAmenitiesRoom(room.HotelId));
+
+                var roomDTO = new RoomDTO
+                {
+                    Id = room.Id,
+                    RoomType = room.RoomType,
+                    Price = room.Price,
+                    Number = room.Number,
+                    Availability = room.Availability,
+                    Size = room.Size,
+                    HotelId = room.HotelId,
+                    HotelAddress = hotelAddress.AddressHotel
+                };
+
+                roomDTOs.Add(roomDTO);
+
+            }
+
+            return roomDTOs;
         }
 
 

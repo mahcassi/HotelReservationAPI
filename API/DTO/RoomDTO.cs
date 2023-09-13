@@ -29,5 +29,7 @@ namespace API.DTO
         public Reservation Reservation { get; set; }
 
         public int HotelId { get; set; }
+
+        public AddressHotelDTO HotelAddress { get; set; }
     }
 }
