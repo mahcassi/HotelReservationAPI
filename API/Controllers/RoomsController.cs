@@ -2,10 +2,12 @@
 using AutoMapper;
 using Domain.Interfaces;
 using Domain.Interfaces.Services;
+using Entity.Enums;
 using Infra.Interfaces.Repository;
 using Infra.Repository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+
 
 namespace API.Controllers
 {
@@ -38,10 +40,14 @@ namespace API.Controllers
             {
                 var hotelAddress = _mapper.Map<HotelDTO>(await _hotelRepository.GetHotelAddressAmenitiesRoom(room.HotelId));
 
+                ERoomType roomType = room.RoomType;
+
+                string description = roomType.GetDescriptionFromValue();
+
                 var roomDTO = new RoomDTO
                 {
                     Id = room.Id,
-                    RoomType = room.RoomType,
+                    RoomType = description,
                     Price = room.Price,
                     Number = room.Number,
                     Availability = room.Availability,

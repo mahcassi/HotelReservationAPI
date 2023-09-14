@@ -10,7 +10,7 @@ namespace API.DTO
         public int Id { get; set; }
 
         //[Required(ErrorMessage = "O campo {0} é obrigatório")]
-        public ERoomType RoomType { get; set; }
+        public string RoomType { get; set; }
 
         //[*Required(ErrorMessage = "O campo {0} é obrigatório")]*/
         public decimal Price { get; set; }
