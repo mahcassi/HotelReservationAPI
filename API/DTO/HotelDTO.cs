@@ -11,6 +11,8 @@ namespace API.DTO
 
         public string PhoneNumber { get; set; }
 
+        public string Description { get; set; }
+
         public string CNPJ { get; set; }
 
         public AddressHotelDTO AddressHotel { get; set; }

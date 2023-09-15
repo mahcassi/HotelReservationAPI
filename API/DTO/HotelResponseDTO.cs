@@ -13,6 +13,8 @@ namespace API.DTO
 
         public string PhoneNumber { get; set; }
 
+        public string Description { get; set; }
+
         public AddressHotelDTO AddressHotel { get; set; }
         public IEnumerable<AmenityHotelDTO> AmenityHotel { get; set; }
         public IEnumerable<RoomDTO> Rooms { get; set; }
