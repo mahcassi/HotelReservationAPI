@@ -2,6 +2,7 @@
 using AutoMapper;
 using Domain.Interfaces;
 using Domain.Interfaces.Services;
+using Entity.Entity;
 using Entity.Enums;
 using Infra.Interfaces.Repository;
 using Infra.Repository;
@@ -40,14 +41,10 @@ namespace API.Controllers
             {
                 var hotelAddress = _mapper.Map<HotelDTO>(await _hotelRepository.GetHotelAddressAmenitiesRoom(room.HotelId));
 
-                ERoomType roomType = room.RoomType;
-
-                string description = roomType.GetDescriptionFromValue();
-
                 var roomDTO = new RoomDTO
                 {
                     Id = room.Id,
-                    RoomType = description,
+                    RoomType = room.RoomType.GetDescriptionFromValue(),
                     Price = room.Price,
                     Number = room.Number,
                     Availability = room.Availability,
@@ -71,13 +68,24 @@ namespace API.Controllers
 
             if (room == null) return NotFound();
 
-            return Ok(room);
+            var roomDTO = new RoomDTO
+            {
+                Id = room.Id,
+                RoomType = room.RoomType.GetDescriptionFromValue(),
+                Price = room.Price,
+                Number = room.Number,
+                Availability = room.Availability,
+                Size = room.Size,
+                HotelId = room.HotelId,
+            };
+
+            return Ok(roomDTO);
         }
 
         [NonAction]
-        private async Task<RoomDTO> ObterRoomHotel(int id)
+        private async Task<Room> ObterRoomHotel(int id)
         {
-            return _mapper.Map<RoomDTO>(await _roomRepository.GetRoomHotel(id));
+            return await _roomRepository.GetRoomHotel(id);
         }
 
     }
