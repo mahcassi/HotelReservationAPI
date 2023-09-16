@@ -12,6 +12,8 @@ namespace Infra.Repository
         {
         }
 
+
+
         public async Task<Hotel> GetHotelAddressAmenitiesRoom(int id)
         {
             var result = await Db.Hotels.AsNoTracking()

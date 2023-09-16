@@ -17,8 +17,11 @@ namespace API.Configuration
             services.AddScoped<INotifier, Notifier>();
             services.AddScoped<IHotelRepository, HotelRepository>();
             services.AddScoped<IHotelService, HotelService>();
+
             services.AddScoped<IRoomRepository, RoomRepository>();
             services.AddScoped<IRoomService, RoomService>();
+
+            services.AddScoped<IAddressHotelRepository, AddressHotelRepository>();
 
             return services;
         }

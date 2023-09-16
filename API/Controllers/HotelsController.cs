@@ -53,6 +53,18 @@ namespace API.Controllers
             return Ok(hotelDTO);
         }
 
+        [HttpDelete("{id:int}")]
+        public async Task<ActionResult<HotelResponseDTO>> Excluir(int id)
+        {
+            var hotel = await ObterHotelRoomEndereco(id);
+
+            if (hotel == null) return NotFound();
+
+            await _hotelService.Remove(id);
+
+            return CustomResponse();
+        }
+
         [HttpPut("{id:int}")]
         public async Task<ActionResult<HotelResponseDTO>> AtualizarHotel(int id, HotelRequestDTO hotel)
         {

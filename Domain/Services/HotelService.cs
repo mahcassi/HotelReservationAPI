@@ -15,50 +15,63 @@ namespace Domain.Services
 {
     public class HotelService : BaseService, IHotelService
     {
-        private readonly IHotelRepository _repository;
+        private readonly IHotelRepository _hotelRepository;
+        private readonly IAddressHotelRepository _addressHotelRepository;
         private readonly MyDbContext _dbContext;
 
-        public HotelService(IHotelRepository repository, INotifier notify, MyDbContext dbContext) : base(notify)
+        public HotelService(IHotelRepository hotelRepository, INotifier notify, MyDbContext dbContext, IAddressHotelRepository addressHotelRepository) : base(notify)
         {
-            _repository = repository;
+            _hotelRepository = hotelRepository;
             _dbContext = dbContext;
+            _addressHotelRepository = addressHotelRepository;
         }
 
         public async Task<bool> Add(Hotel hotel)
         {
+            if (ExecuteValidation(new HotelValidation(), hotel)) return false;
 
-            if(_repository.Search(h => h.CNPJ == hotel.CNPJ).Result.Any())
+            if (_hotelRepository.Search(h => h.CNPJ == hotel.CNPJ).Result.Any())
             {
                 Notify("Já existe um hotel com este CNPJ informado.");
                 return false;
             }
 
-            await _repository.Add(hotel);
+            await _hotelRepository.Add(hotel);
             return true;
         }
 
 
 
-        public async Task Remove(int id)
+        public async Task<bool> Remove(int id)
         {
-            //if (_repository.GetHotelRooms(id).Result.Rooms.Any())
-            //{
-            //    Notify("O fornecedor possui produtos cadastrados!");
-            //    return false;
-            //}
+            if (_hotelRepository.GetHotelAddressAmenitiesRoom(id).Result.Rooms.Any())
+            {
+                Notify("O Hotel possui quartos cadastrados!");
+                return false;
+            }
+
+            var addressHotel = await _addressHotelRepository.GetAddressByHotel(id);
+
+            if (addressHotel != null)
+            {
+                _addressHotelRepository.Remove(addressHotel.Id);
+            }
+
+            await _hotelRepository.Remove(id);
+            return true;
         }
 
         public async Task<bool> Update(Hotel hotel)
         {
-            //if (ExecuteValidation(new HotelValidation(), hotel)) return false;
+            if (ExecuteValidation(new HotelValidation(), hotel)) return false;
 
-            if (_repository.Search(h => h.CNPJ == hotel.CNPJ && h.Id != hotel.Id).Result.Any())
+            if (_hotelRepository.Search(h => h.CNPJ == hotel.CNPJ && h.Id != hotel.Id).Result.Any())
             {
                 Notify("Já existe um hotel com este CNPJ informado.");
                 return false;
             }
 
-            await _repository.Update(hotel);
+            await _hotelRepository.Update(hotel);
             return true;
         }
 
@@ -72,7 +85,7 @@ namespace Domain.Services
 
                     if (isHotelUpdated)
                     {
-                        await _repository.UpdateAssociationAmenityHotel(hotel.Id, amenityIds);
+                        await _hotelRepository.UpdateAssociationAmenityHotel(hotel.Id, amenityIds);
                         transaction.Commit();
                         return true;
                     }
@@ -98,7 +111,7 @@ namespace Domain.Services
             {
                 foreach (var amenityId in amenityIds)
                 {
-                    await _repository.AssociationAmenityHotel(hotel.Id, amenityId);
+                    await _hotelRepository.AssociationAmenityHotel(hotel.Id, amenityId);
                 }
                 return true;
             }
@@ -111,7 +124,7 @@ namespace Domain.Services
 
         public void Dispose()
         {
-            _repository?.Dispose();
+            _hotelRepository?.Dispose();
         }
 
     }
