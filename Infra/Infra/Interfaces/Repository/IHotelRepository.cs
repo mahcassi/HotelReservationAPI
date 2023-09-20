@@ -16,5 +16,7 @@ namespace Infra.Interfaces.Repository
         Task<bool> AssociationAmenityHotel(int hotelId, int amenityId);
 
         Task UpdateAssociationAmenityHotel(int hotelId, IEnumerable<int> newAmenityIds);
+
+        Task RemoveAssociationAmenityHotel(int hotelId);
     }
 }

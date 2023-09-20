@@ -87,5 +87,15 @@ namespace Infra.Repository
 
             await SaveChanges();
         }
+
+        public async Task RemoveAssociationAmenityHotel(int hotelId)
+        {
+            var amenitiesToRemoveEntities = Db.HotelAmenities
+                   .Where(ha => ha.HotelId == hotelId).ToList();
+
+            Db.HotelAmenities.RemoveRange(amenitiesToRemoveEntities);
+
+            await SaveChanges();
+        }
     }
 }

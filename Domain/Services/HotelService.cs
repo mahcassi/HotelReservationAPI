@@ -54,10 +54,12 @@ namespace Domain.Services
 
             if (addressHotel != null)
             {
-                _addressHotelRepository.Remove(addressHotel.Id);
+                await _addressHotelRepository.Remove(addressHotel.Id);
             }
 
+            await _hotelRepository.RemoveAssociationAmenityHotel(id);
             await _hotelRepository.Remove(id);
+
             return true;
         }
 
