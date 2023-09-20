@@ -58,6 +58,11 @@ namespace Domain.Services
             return true;
         }
 
+        public async Task<List<Room>> SearchRooms(string number)
+        {
+            return await _repository.SearchRoomByType(number);
+        }
+
         public void Dispose()
         {
             _repository?.Dispose();

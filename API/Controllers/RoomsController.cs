@@ -82,11 +82,17 @@ namespace API.Controllers
             return Ok(roomDTO);
         }
 
+        [HttpGet("teste")]
+        public async Task<IActionResult> SearchRooms([FromQuery] string number)
+        {
+            var rooms = await _roomService.SearchRooms(number);
+            return Ok(rooms);
+        }
+
         [NonAction]
         private async Task<Room> ObterRoomHotel(int id)
         {
             return await _roomRepository.GetRoomHotel(id);
         }
-
     }
 }

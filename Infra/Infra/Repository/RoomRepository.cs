@@ -17,5 +17,18 @@ namespace Infra.Repository
                 .Include(c => c.Hotel)
                 .FirstOrDefaultAsync(c => c.Id == id);
         }
+
+        public async Task<List<Room>> SearchRoomByType(string number)
+        {
+            var query = Db.Rooms.AsQueryable();
+
+            if (!string.IsNullOrEmpty(number))
+            {
+                query = query.Where(p => p.Number.Contains(number));
+            }
+
+            return await query.ToListAsync();
+        }
+
     }
 }

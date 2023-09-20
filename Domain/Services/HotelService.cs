@@ -65,7 +65,7 @@ namespace Domain.Services
 
         public async Task<bool> Update(Hotel hotel)
         {
-            if (ExecuteValidation(new HotelValidation(), hotel)) return false;
+            //if (ExecuteValidation(new HotelValidation(), hotel)) return false;
 
             if (_hotelRepository.Search(h => h.CNPJ == hotel.CNPJ && h.Id != hotel.Id).Result.Any())
             {

@@ -12,5 +12,7 @@ namespace Domain.Interfaces.Services
         Task<bool> Add(Room room);
         Task<bool> Update(Room room);
         Task Remove(int id);
+
+        Task<List<Room>> SearchRooms(string number);
     }
 }

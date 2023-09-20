@@ -10,5 +10,7 @@ namespace Infra.Interfaces.Repository
     public interface IRoomRepository : IBaseRepository<Room>
     {
         Task<Room> GetRoomHotel(int id);
+
+        Task<List<Room>> SearchRoomByType(string number);
     }
 }
