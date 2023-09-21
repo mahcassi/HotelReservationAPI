@@ -10,6 +10,7 @@ namespace Entity.Entity
     {
         public string Name { get; set; }
 
+        // relacionamento N:N - Amenity tem varias hotelAmenities
         public IEnumerable<HotelAmenity> HotelAmenities { get; set; }
     }
 }

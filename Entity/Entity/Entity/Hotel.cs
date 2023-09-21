@@ -7,6 +7,8 @@
         public string Description { get; set; }
         public string CNPJ { get; set; }
         public AddressHotel AddressHotel { get; set; }
+
+        // relacionamento N:N - Hotel tem varias hotelAmenities
         public IEnumerable<HotelAmenity> HotelAmenities { get; set; }
         public IEnumerable<Room> Rooms { get; set; }
 
