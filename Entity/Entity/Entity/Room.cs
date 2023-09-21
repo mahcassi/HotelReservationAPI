@@ -16,5 +16,6 @@ namespace Entity.Entity
         public Reservation Reservation { get; set; }
         public int HotelId { get; set; }
         public Hotel Hotel { get; set; }
+        public IEnumerable<RoomAmenity> RoomAmenities { get; set; }
     }
 }
