@@ -29,6 +29,9 @@ namespace Infra.Mappings
             builder.HasOne(b => b.Reservation)
                .WithOne(h => h.Room);
 
+            builder.HasMany(h => h.RoomAmenities)
+              .WithOne(ha => ha.Room)
+              .HasForeignKey(ha => ha.RoomId);
 
             builder.ToTable("Rooms"); 
         }

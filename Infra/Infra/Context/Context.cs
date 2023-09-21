@@ -12,9 +12,11 @@ namespace Infra.Context
         public DbSet<Guest> Guests { get; set; }
         public DbSet<HotelAmenity> HotelAmenities { get; set; }
 
-        public DbSet<AmenityHotel> AmenityHotel { get; set; }
+        public DbSet<AmenityHotel> AmenityHotels { get; set; }
         public DbSet<Reservation> Reservations { get; set; }
         public DbSet<Room> Rooms { get; set; }
+        public DbSet<RoomAmenity> RoomAmenities { get; set; }
+        public DbSet<AmenityRoom>  AmenityRooms { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
