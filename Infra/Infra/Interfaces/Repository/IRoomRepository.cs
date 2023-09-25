@@ -12,5 +12,11 @@ namespace Infra.Interfaces.Repository
         Task<Room> GetRoomHotel(int id);
 
         Task<List<Room>> SearchRoomByType(string number);
+
+        Task<bool> AssociationAmenityRoom(int roomId, int amenityId);
+
+        Task UpdateAssociationAmenityRoom(int roomId, IEnumerable<int> newAmenityIds);
+
+        Task RemoveAssociationAmenityRoom(int roomId);
     }
 }
