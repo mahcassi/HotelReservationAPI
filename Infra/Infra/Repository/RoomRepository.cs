@@ -30,5 +30,68 @@ namespace Infra.Repository
             return await query.ToListAsync();
         }
 
+        public async Task<bool> AssociationAmenityRoom(int roomId, int amenityId)
+        {
+            var amentiesExist = Db.RoomAmenities.Where(ha => ha.RoomId == roomId && ha.AmenityId == amenityId).ToList();
+
+            if (!amentiesExist.Any())
+            {
+                var roomAmenity = new RoomAmenity
+                {
+                    RoomId = roomId,
+                    AmenityId = amenityId
+                };
+
+                Db.RoomAmenities.Add(roomAmenity);
+                await SaveChanges();
+                return true; // Associação adicionada com sucesso
+            }
+
+            return false; // A associação já existe
+        }
+
+        public async Task UpdateAssociationAmenityRoom(int roomId, IEnumerable<int> newAmenityIds)
+        {
+            var currentAmenityIds = await Db.RoomAmenities
+                                            .Where(ha => ha.RoomId == roomId)
+                                            .Select(ha => ha.AmenityId)
+                                            .ToListAsync();
+
+            var amenitiesToRemove = currentAmenityIds.Except(newAmenityIds).ToList();
+            var amenitiesToAdd = newAmenityIds.Except(currentAmenityIds).ToList();
+
+            if (amenitiesToRemove.Any())
+            {
+                var amenitiesToRemoveEntities = Db.RoomAmenities
+                    .Where(ha => ha.RoomId == roomId && amenitiesToRemove.Contains(ha.AmenityId))
+                    .ToList();
+
+                Db.HotelAmenities.RemoveRange(amenitiesToRemoveEntities);
+            }
+
+            foreach (var amenityId in amenitiesToAdd)
+            {
+                var hotelAmenity = new HotelAmenity
+                {
+                    HotelId = roomlId,
+                    AmenityId = amenityId
+                };
+
+                Db.HotelAmenities.Add(hotelAmenity);
+            }
+
+            await SaveChanges();
+        }
+
+        public async Task RemoveAssociationAmenityHotel(int hotelId)
+        {
+            var amenitiesToRemoveEntities = Db.HotelAmenities
+                   .Where(ha => ha.HotelId == hotelId).ToList();
+
+            Db.HotelAmenities.RemoveRange(amenitiesToRemoveEntities);
+
+            await SaveChanges();
+        }
+
     }
 }
