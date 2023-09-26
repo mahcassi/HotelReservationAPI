@@ -66,29 +66,29 @@ namespace Infra.Repository
                     .Where(ha => ha.RoomId == roomId && amenitiesToRemove.Contains(ha.AmenityId))
                     .ToList();
 
-                Db.HotelAmenities.RemoveRange(amenitiesToRemoveEntities);
+                Db.RoomAmenities.RemoveRange(amenitiesToRemoveEntities);
             }
 
             foreach (var amenityId in amenitiesToAdd)
             {
-                var hotelAmenity = new HotelAmenity
+                var roomAmenity = new RoomAmenity
                 {
-                    HotelId = roomlId,
+                    RoomId = roomId,
                     AmenityId = amenityId
                 };
 
-                Db.HotelAmenities.Add(hotelAmenity);
+                Db.RoomAmenities.Add(roomAmenity);
             }
 
             await SaveChanges();
         }
 
-        public async Task RemoveAssociationAmenityHotel(int hotelId)
+        public async Task RemoveAssociationAmenityRoom(int roomId)
         {
-            var amenitiesToRemoveEntities = Db.HotelAmenities
-                   .Where(ha => ha.HotelId == hotelId).ToList();
+            var amenitiesToRemoveEntities = Db.RoomAmenities
+                   .Where(ha => ha.RoomId == roomId).ToList();
 
-            Db.HotelAmenities.RemoveRange(amenitiesToRemoveEntities);
+            Db.RoomAmenities.RemoveRange(amenitiesToRemoveEntities);
 
             await SaveChanges();
         }

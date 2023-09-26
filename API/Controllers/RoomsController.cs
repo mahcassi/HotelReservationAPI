@@ -2,6 +2,7 @@
 using AutoMapper;
 using Domain.Interfaces;
 using Domain.Interfaces.Services;
+using Domain.Services;
 using Entity.Entity;
 using Entity.Enums;
 using Infra.Interfaces.Repository;
@@ -87,6 +88,16 @@ namespace API.Controllers
         {
             var rooms = await _roomService.SearchRooms(number);
             return Ok(rooms);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<RoomRequestDTO>> Adicionar(RoomRequestDTO room)
+        {
+            if (!ModelState.IsValid) return CustomResponse(ModelState);
+
+            await _roomService.AddRoomWithAmenities(_mapper.Map<Room>(room), room.AmenitiesIds);
+
+            return CustomResponse(room);
         }
 
         [NonAction]

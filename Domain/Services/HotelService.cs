@@ -1,15 +1,9 @@
 ﻿using Domain.Interfaces;
-using Infra.Interfaces.Repository;
 using Domain.Interfaces.Services;
 using Entity.Entity;
 using Entity.Validations;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Infra.Context;
+using Infra.Interfaces.Repository;
 
 namespace Domain.Services
 {

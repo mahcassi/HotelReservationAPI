@@ -1,43 +1,38 @@
 ﻿using Domain.Interfaces;
-using Infra.Interfaces.Repository;
 using Domain.Interfaces.Services;
 using Entity.Entity;
-using Entity.Validations;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Infra.Context;
+using Infra.Interfaces.Repository;
 
 namespace Domain.Services
 {
     public class RoomService : BaseService, IRoomService
     {
-        private readonly IRoomRepository _repository;
+        private readonly IRoomRepository _roomRepository;
+        private readonly MyDbContext _dbContext;
 
-        public RoomService(IRoomRepository repository, INotifier notify) : base(notify)
+        public RoomService(IRoomRepository repository, INotifier notify, MyDbContext dbContext) : base(notify)
         {
-            _repository = repository;
+            _roomRepository = repository;
+            _dbContext = dbContext;
         }
 
         public async Task<bool> Add(Room room)
         {
 
-            if(_repository.Search(r => r.Number == room.Number).Result.Any())
+            if(_roomRepository.Search(r => r.Number == room.Number).Result.Any())
             {
                 Notify("Já existe um quarto com este número informado.");
                 return false;
             }
 
-            await _repository.Add(room);
+            await _roomRepository.Add(room);
             return true;
         }
 
         public async Task Remove(int id)
         {
-            //if (_repository.GetHotelRooms(id).Result.Rooms.Any())
+            //if (_roomRepository.GetroomRooms(id).Result.Rooms.Any())
             //{
             //    Notify("O fornecedor possui produtos cadastrados!");
             //    return false;
@@ -46,26 +41,74 @@ namespace Domain.Services
 
         public async Task<bool> Update(Room room)
         {
-            //if (ExecuteValidation(new HotelValidation(), hotel)) return false;
+            //if (ExecuteValidation(new roomValidation(), room)) return false;
 
-            if (_repository.Search(r => r.Number == room.Number && r.Id != room.Id).Result.Any())
+            if (_roomRepository.Search(r => r.Number == room.Number && r.Id != room.Id).Result.Any())
             {
                 Notify("Já existe um quarto com este número informado.");
                 return false;
             }
 
-            await _repository.Update(room);
+            await _roomRepository.Update(room);
             return true;
         }
 
         public async Task<List<Room>> SearchRooms(string number)
         {
-            return await _repository.SearchRoomByType(number);
+            return await _roomRepository.SearchRoomByType(number);
+        }
+
+        public async Task<bool> UpdateRoomWithAmenities(Room room, IEnumerable<int> amenityIds)
+        {
+            using (var transaction = _dbContext.Database.BeginTransaction())
+            {
+                try
+                {
+                    bool isRoomUpdated = await Update(room);
+
+                    if (isRoomUpdated)
+                    {
+                        await _roomRepository.UpdateAssociationAmenityRoom(room.Id, amenityIds);
+                        transaction.Commit();
+                        return true;
+                    }
+                    else
+                    {
+                        Notify("Quarto não foi atualizado. Comodidades não foram associadas.");
+                        return false;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    return false;
+                }
+            }
+
+        }
+
+        public async Task<bool> AddRoomWithAmenities(Room room, IEnumerable<int> amenityIds)
+        {
+            bool isRoomAdded = await Add(room);
+
+            if (isRoomAdded)
+            {
+                foreach (var amenityId in amenityIds)
+                {
+                    await _roomRepository.AssociationAmenityRoom(room.Id, amenityId);
+                }
+                return true;
+            }
+            else
+            {
+                Notify("Quarto não foi adicionado. Comodidades não foram associadas.");
+                return false;
+            }
         }
 
         public void Dispose()
         {
-            _repository?.Dispose();
+            _roomRepository?.Dispose();
         }
     }
 }
