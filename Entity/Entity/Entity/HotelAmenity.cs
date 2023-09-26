@@ -1,6 +1,6 @@
 ﻿namespace Entity.Entity
 {
-    public class HotelAmenity : BaseEntity
+    public class HotelAmenity
     {
         public int HotelId { get; set; }
         public int AmenityId { get; set; }
