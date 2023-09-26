@@ -23,6 +23,7 @@ namespace API.Configuration
 
             //Room
             CreateMap<Room, RoomDTO>().ReverseMap();
+            CreateMap<Room, RoomRequestDTO>().ReverseMap();
         }
     }
 }
