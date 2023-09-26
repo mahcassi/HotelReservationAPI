@@ -1,6 +1,6 @@
 ﻿using Entity.Entity;
 
-namespace API.DTO
+namespace API.DTO.Hotel
 {
     public class AmenityHotelDTO
     {

@@ -1,4 +1,6 @@
 ﻿using API.DTO;
+using API.DTO.Hotel;
+using API.DTO.Room;
 using AutoMapper;
 using Domain.Interfaces.Services;
 using Domain.Services;

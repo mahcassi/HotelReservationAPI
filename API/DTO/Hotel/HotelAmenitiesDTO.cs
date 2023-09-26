@@ -1,7 +1,7 @@
 ﻿using Entity.Entity;
 using System.ComponentModel.DataAnnotations;
 
-namespace API.DTO
+namespace API.DTO.Hotel
 {
     public class HotelAmenitiesDTO
     {

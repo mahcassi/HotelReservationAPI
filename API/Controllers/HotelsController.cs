@@ -1,11 +1,11 @@
-﻿using API.DTO;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using AutoMapper;
 using Infra.Interfaces.Repository;
 using Domain.Interfaces.Services;
 using Domain.Interfaces;
 using Entity.Entity;
+using API.DTO.Hotel;
 
 namespace API.Controllers
 {
