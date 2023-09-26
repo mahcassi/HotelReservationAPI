@@ -47,7 +47,6 @@ namespace API.Controllers
                 PhoneNumber = hotel.PhoneNumber,
                 AddressHotel = hotel.AddressHotel,
                 AmenityHotel = hotel.HotelAmenities.Select(x => x.AmenityHotel).ToList(),
-                Rooms = hotel.Rooms,
                 Description = hotel.Description
             };
 
