@@ -28,6 +28,8 @@ namespace API
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
             });
 
+            builder.Services.AddIndetityConfiguration(builder.Configuration);
+
             builder.Services.AddAutoMapper(typeof(Program));
             builder.Services.ResolveDependencies();
 
