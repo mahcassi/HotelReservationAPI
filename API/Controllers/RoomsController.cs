@@ -101,6 +101,16 @@ namespace API.Controllers
             return CustomResponse(room);
         }
 
+        [HttpPut("{id:int}")]
+        public async Task<ActionResult> AtualizarQuarto(int id, RoomRequestDTO room)
+        {
+            if (!ModelState.IsValid) return CustomResponse(ModelState);
+
+            await _roomService.UpdateRoomWithAmenities(_mapper.Map<Room>(room), room.AmenitiesIds);
+
+            return CustomResponse(room);
+        }
+
         [NonAction]
         private async Task<Room> ObterRoomHotel(int id)
         {
