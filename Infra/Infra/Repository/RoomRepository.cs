@@ -18,6 +18,15 @@ namespace Infra.Repository
                 .FirstOrDefaultAsync(c => c.Id == id);
         }
 
+        public async Task<Room> GetRoomAmenitiesReservation(int id)
+        {
+            return await Db.Rooms.AsNoTracking()
+                .Include(c => c.Reservation)
+                .Include(c => c.RoomAmenities)
+                .ThenInclude(c => c.AmenityRoom)
+                .FirstOrDefaultAsync(c => c.Id == id);
+        }
+
         public async Task<List<Room>> SearchRoomByType(string number)
         {
             var query = Db.Rooms.AsQueryable();

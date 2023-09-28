@@ -11,6 +11,8 @@ namespace Infra.Interfaces.Repository
     {
         Task<Room> GetRoomHotel(int id);
 
+        Task<Room> GetRoomAmenitiesReservation(int id);
+
         Task<List<Room>> SearchRoomByType(string number);
 
         Task<bool> AssociationAmenityRoom(int roomId, int amenityId);

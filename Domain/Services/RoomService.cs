@@ -3,6 +3,7 @@ using Domain.Interfaces.Services;
 using Entity.Entity;
 using Infra.Context;
 using Infra.Interfaces.Repository;
+using Infra.Repository;
 
 namespace Domain.Services
 {
@@ -30,13 +31,18 @@ namespace Domain.Services
             return true;
         }
 
-        public async Task Remove(int id)
+        public async Task<bool> Remove(int id)
         {
-            //if (_roomRepository.GetroomRooms(id).Result.Rooms.Any())
-            //{
-            //    Notify("O fornecedor possui produtos cadastrados!");
-            //    return false;
-            //}
+            if (_roomRepository.GetRoomAmenitiesReservation(id).Result.Reservation != null)
+            {
+                Notify("O quarto possui reservas!");
+                return false;
+            }
+
+            await _roomRepository.RemoveAssociationAmenityRoom(id);
+            await _roomRepository.Remove(id);
+
+            return true;
         }
 
         public async Task<bool> Update(Room room)

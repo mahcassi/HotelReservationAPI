@@ -70,6 +70,8 @@ namespace API.Controllers
 
             if (room == null) return NotFound();
 
+            var hotelAddress = _mapper.Map<HotelDTO>(await _hotelRepository.GetHotelAddressAmenitiesRoom(room.HotelId));
+
             var roomDTO = new RoomDTO
             {
                 Id = room.Id,
@@ -79,16 +81,10 @@ namespace API.Controllers
                 Availability = room.Availability,
                 Size = room.Size,
                 HotelId = room.HotelId,
+                HotelAddress = hotelAddress.AddressHotel
             };
 
             return Ok(roomDTO);
-        }
-
-        [HttpGet("teste")]
-        public async Task<IActionResult> SearchRooms([FromQuery] string number)
-        {
-            var rooms = await _roomService.SearchRooms(number);
-            return Ok(rooms);
         }
 
         [HttpPost]
@@ -109,6 +105,18 @@ namespace API.Controllers
             await _roomService.UpdateRoomWithAmenities(_mapper.Map<Room>(room), room.AmenitiesIds);
 
             return CustomResponse(room);
+        }
+
+        [HttpDelete("{id:int}")]
+        public async Task<ActionResult> Excluir(int id)
+        {
+            var hotel = await ObterRoomHotel(id);
+
+            if (hotel == null) return NotFound();
+
+            await _roomService.Remove(id);
+
+            return CustomResponse();
         }
 
         [NonAction]
