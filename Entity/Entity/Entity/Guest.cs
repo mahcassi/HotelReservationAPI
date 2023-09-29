@@ -1,6 +1,8 @@
-﻿namespace Entity.Entity
+﻿using Microsoft.AspNetCore.Identity;
+
+namespace Entity.Entity
 {
-    public class Guest : BaseEntity
+    public class Guest : IdentityUser
     {
         public string Name { get; set; }
         public string Telephone { get; set; }
