@@ -3,7 +3,6 @@ using Domain.Interfaces.Services;
 using Entity.Entity;
 using Infra.Context;
 using Infra.Interfaces.Repository;
-using Infra.Repository;
 
 namespace Domain.Services
 {

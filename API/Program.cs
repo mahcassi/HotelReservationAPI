@@ -1,11 +1,5 @@
 using API.Configuration;
-using Domain.Interfaces;
-using Infra.Interfaces.Repository;
-using Domain.Interfaces.Services;
-using Domain.Notifications;
-using Domain.Services;
 using Infra.Context;
-using Infra.Repository;
 using Microsoft.EntityFrameworkCore;
 
 namespace API

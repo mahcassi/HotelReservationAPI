@@ -1,5 +1,4 @@
 ﻿using Entity.Entity;
-using Infra.Context;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 

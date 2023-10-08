@@ -1,5 +1,4 @@
 ﻿using Entity.Entity;
-using System.ComponentModel.DataAnnotations;
 
 namespace API.DTO.Room
 {

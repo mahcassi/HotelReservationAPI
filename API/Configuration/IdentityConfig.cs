@@ -1,8 +1,6 @@
 ﻿using API.Data;
-using Infra.Context;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using System.Runtime.CompilerServices;
 
 namespace API.Configuration
 {

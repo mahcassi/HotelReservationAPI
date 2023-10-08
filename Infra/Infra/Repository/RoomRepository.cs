@@ -1,6 +1,6 @@
-﻿using Infra.Interfaces.Repository;
-using Entity.Entity;
+﻿using Entity.Entity;
 using Infra.Context;
+using Infra.Interfaces.Repository;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infra.Repository

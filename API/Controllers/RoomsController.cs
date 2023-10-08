@@ -3,12 +3,8 @@ using API.DTO.Room;
 using AutoMapper;
 using Domain.Interfaces;
 using Domain.Interfaces.Services;
-using Domain.Services;
 using Entity.Entity;
-using Entity.Enums;
 using Infra.Interfaces.Repository;
-using Infra.Repository;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 
